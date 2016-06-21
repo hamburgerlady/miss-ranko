@@ -6,6 +6,7 @@ else
     robust = params.robust;
     vvin = params.inlierbnd^2;
 end
+
 lille = 1e-7;
 N0 = size(X,1);
 sol.V(end,:)=1;
@@ -36,7 +37,9 @@ end
 
 resgrad = calcresgrad_rank4(sol,robust);
 
-x_gn = -resgrad\res0;
+gids = sum(resgrad~=0)>rk;
+x_gn = zeros(rk*(N-rk)+(rk-1)*M,1);
+x_gn(gids) = -resgrad(:,gids)\res0;
 
 
 

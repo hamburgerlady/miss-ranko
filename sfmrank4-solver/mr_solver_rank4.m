@@ -10,6 +10,7 @@ while kul,
     iters = iters+1;
     [cursols,goodsols]=extendsols_rank4(X,W,cursols,goodsols,params);
     [cursols,goodsols]=gluesols_rank4(X,W,cursols,goodsols,params);
+
     
     NN = 0;
     for iii = 1:length(cursols),
