@@ -1,4 +1,4 @@
-function [cursols,goodsols] = gluesols_rank4(X,W,cursols,goodsols,params)
+function [cursols,goodsols] = gluesols_rankn(X,W,cursols,goodsols,params)
 
 
 %disp(['size before glue: ' num2str(length(cursols))])
@@ -31,12 +31,12 @@ for kkk = 1:raniter,
         idis = find(okind_indyi(:,gok_indyi(randperm(length(gok_indyi),1)))==1);
         if length(idis)>=2,
             idis = idis(randperm(length(idis),2));
-            [sol,ok] = gluei_rank4_ransac(X,W,cursols{idis(1)},cursols{idis(2)},params);
+            [sol,ok] = gluei_rankn_ransac(X,W,cursols{idis(1)},cursols{idis(2)},params);
             if ok
                 %disp('glue!');
                  for lll = 1:params.bundleiter,
-                    sol=bundlerank4_onestep(X,sol,params);
-                    sol = updateW_rank4(X,sol,params);
+                    sol=bundlerankn_onestep(X,sol,params);
+                    sol = updateW_rankn(X,sol,params);
                 end
   
                 maxN = length(sol.indyi);
@@ -57,12 +57,12 @@ for kkk = 1:raniter,
         idis = find(okind_indyj(:,gok_indyj(randperm(length(gok_indyj),1)))==1);
         if length(idis)>=2,
             idis = idis(randperm(length(idis),2));
-            [sol,ok] = gluei_rank4_ransac(X,W,cursols{idis(1)},cursols{idis(2)},params);
+            [sol,ok] = gluei_rankn_ransac(X,W,cursols{idis(1)},cursols{idis(2)},params);
             if ok
                 %disp('glue!');
                  for lll = 1:params.bundleiter,
-                    sol=bundlerank4_onestep(X,sol,params);
-                    sol = updateW_rank4(X,sol,params);
+                    sol=bundlerankn_onestep(X,sol,params);
+                    sol = updateW_rankn(X,sol,params);
                 end
 
                 maxN = length(sol.indyi);

@@ -1,15 +1,15 @@
-function sol = mr_solver_rank4(X,W,params)
+function sol = mr_solver_rankn(X,W,params)
 
 [params.N,params.M] = size(X);
 kul = 1;
 iters = 0;
 goodsols = {};
-cursols = initsols_rank4(X,W,params);
+cursols = initsols_rankn(X,W,params);
 
 while kul,
     iters = iters+1;
-    [cursols,goodsols]=extendsols_rank4(X,W,cursols,goodsols,params);
-    [cursols,goodsols]=gluesols_rank4(X,W,cursols,goodsols,params);
+    [cursols,goodsols]=extendsols_rankn(X,W,cursols,goodsols,params);
+    [cursols,goodsols]=gluesols_rankn(X,W,cursols,goodsols,params);
 
     
     NN = 0;
@@ -23,12 +23,12 @@ while kul,
     
     
     if isempty(goodsols) && isempty(cursols),
-        cursols = initsols_rank4(X,W,params);
+        cursols = initsols_rankn(X,W,params);
     end
     kul = (iters<=params.maxiter) && ~isempty(cursols);
 end
 
-sol = bestsol_rank4(X,goodsols,params);
+sol = bestsol_rankn(X,goodsols,params);
 
         
  

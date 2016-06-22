@@ -1,14 +1,14 @@
-function [cursols,goodsols]=extendsols_rank4(X,W,cursols,goodsols,params)
+function [cursols,goodsols]=extendsols_rankn(X,W,cursols,goodsols,params)
 
 badids = [];
 goodids = [];
 nn = length(cursols);
 for iii = 1:nn,
-    [cursols{iii},ok1] = extendj_rank4_ransac(X,W,cursols{iii},params);
-    [cursols{iii},ok2] = extendi_rank4_ransac(X,W,cursols{iii},params);
+    [cursols{iii},ok1] = extendj_rankn_ransac(X,W,cursols{iii},params);
+    [cursols{iii},ok2] = extendi_rankn_ransac(X,W,cursols{iii},params);
     for kkk = 1:params.bundleiter,
-        cursols{iii}=bundlerank4_onestep(X,cursols{iii},params);
-        cursols{iii} = updateW_rank4(X,cursols{iii},params);
+        cursols{iii}=bundlerankn_onestep(X,cursols{iii},params);
+        cursols{iii} = updateW_rankn(X,cursols{iii},params);
     end
     
     if ~ok1 && ~ok2,
